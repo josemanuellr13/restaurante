@@ -1,0 +1,9 @@
+<button *ngIf="activo" class="bg-blue-100 min-w-24 flex flex-col flex-nowrap items-center justify-center w-full h-24 shadow-lg border border-blue-300 ring-4 mb-8 rounded">
+    <img class="w-12 " src="../../assets/{{icon}}.png " alt="">
+    <p class="">{{texto}}</p>
+</button>
+
+<button *ngIf="!activo" class="bg-slate-100 min-w-24 flex flex-col flex-nowrap items-center justify-center w-full h-24 shadow-lg border border-slate-300 mb-8 rounded">
+    <img class="w-12 opacity-50" src="../../assets/{{icon}}.png " alt="">
+    <p class="text-zinc-500">{{texto}}</p>
+</button>

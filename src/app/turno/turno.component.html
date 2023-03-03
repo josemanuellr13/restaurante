@@ -1,0 +1,26 @@
+<div class="flex flex-row w-full h-screen bg-red-200">
+
+    <!-- Preparando -->
+    <div class="bg-gradient-to-b from-black to-zinc-600 w-2/5 p-8 lg:p-16 pt-12">
+        <h1 class="text-slate-200  mb-6 text-5xl font-semibold">Preparando<span value="">{{puntos}}</span></h1>
+
+        <div class="flex flex-row flex-wrap gap-6 ">
+            <div *ngFor="let prep of preparando" class="flex items-center justify-center bg-slate-200 bg-opacity-30 rounded-lg w-1/2 h-48 shadow-lg" style="max-width: calc(50% - 1rem);">
+                <span class=" text-white text-6xl xl:text-8xl font-bold">{{prep}}</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Listo -->
+    <div class="bg-slate-200 w-3/5 p-8 lg:p-16 pt-12  justify-center">
+        <h1 class="relative text-zinc-800  mb-6 text-5xl font-semibold">Listo <i class="absolute ml-2 bottom-1 text-5xl bi bi-bag-check-fill text-blue-500"></i></h1>
+
+        <div id="contenedor" class="overflow-hidden flex flex-row flex-wrap gap-6 pb-10 ">
+            
+                <div *ngFor="let prep of preparando" class="loop-containeranimate__animated animate__bounce flex items-center justify-center bg-white rounded-lg w-1/2 h-48 shadow-lg" style="max-width: calc(50% - 1rem);">
+                    <span class="text-zinc-800 text-6xl lg:text-8xl font-bold">{{prep}}</span>
+                </div>
+           
+        </div>
+    </div>
+</div>

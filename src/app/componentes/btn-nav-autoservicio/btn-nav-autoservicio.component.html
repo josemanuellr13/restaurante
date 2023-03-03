@@ -1,0 +1,9 @@
+<button *ngIf="!activo" class="w-24 md:w-40 h-24 md:h-40 bg-zinc-500 bg-opacity-70 rounded">
+    <i class="bi bi-shop text-gray-300 text-3xl"></i>
+    <p class="text-gray-300 text-xl">{{texto}}</p>
+</button>
+
+<button *ngIf="activo" class="w-24 md:w-40 h-24 md:h-40 ring-4 bg-blue-300  bg-opacity-60 rounded">
+    <i class="bi bi-shop text-white text-3xl"></i>
+    <p class="text-white xfont-semibold text-xl">{{texto}}</p>
+</button>

@@ -1,0 +1,15 @@
+.loop-container {
+    animation: loop 10s linear infinite;
+  }
+  
+  @keyframes loop {
+      0% {
+        transform: translateY(0%);
+      }
+      50.99% {
+        transform: translateY(-400%);
+      }
+      51% {
+        transform: translateY(300%);
+      }
+  }
