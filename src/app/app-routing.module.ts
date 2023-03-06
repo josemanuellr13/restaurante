@@ -26,6 +26,11 @@ const routes: Routes = [{
 },
 {
   path:"dashboard",component : DashboardComponent
+}
+,{
+  path:"dashboard/:opcion",component : DashboardComponent
+},{
+  path:"dashboard/:opcion/:id",component : DashboardComponent
 }];
 
 @NgModule({

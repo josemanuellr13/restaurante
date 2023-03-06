@@ -1,38 +1,31 @@
-<div class="bg-slate-200 w-full h-screen flex flex-row">
+<div class="relative bg-slate-200 w-full h-screen flex flex-row">
+
+    <div class="absolute right-12 top-12">
+        <toast *ngIf="alerta" [tipo]="tipoAlerta" [texto]="mensajeAlerta"></toast>
+    </div>
+
     <!-- Nav izquierdo -->
     <div class="bg-gradient-to-b from-zinc-800 to-zinc-600 w-1/4 p-6">
         <img src="../../assets/logo-blanca.png" alt="">
 
-        <button class="bg-zinc-500 w-full h-20 rounded text-xl text-white">Gestion interna</button>
+        <button routerLink="/dashboard/productos" routerLinkActive="router-link-active"  class="bg-zinc-500 w-full h-20 rounded text-xl text-white">Productos</button>
     </div>
+
 
     <!-- Contenido -->
     <div class="w-3/4 p-12">
-        <!-- Gestion interna -->
-        <div class="">
-            <!-- Añadir producto-->
-            <div class="bg-white rounded p-6 shadow-lg">
-                <h2 class="text-2xl font-semibold text-slate-800">Añadir producto</h2>
-                <hr class="border-zinc-400 my-3">
 
-                <form #formGuardarProducto="ngForm" class="flex flex-col flex-wrap md:flex-row gap-3" (ngSubmit)="guardarProducto()">
-                    <input type="text" name="nombre" ngModel id="nombre" class="bg-slate-100 border p-3 grow" placeholder="Nombre del producto">
-                    <input type="number" name="precio" ngModel id="precio" class="bg-slate-100 border p-3" placeholder="Precio">
-                    <input type="text" name="imagen" ngModel id="imagen" class="bg-slate-100 border p-3 grow" placeholder="Imagen">
-                    <select name="categoria" ngModel id="categoria" class="bg-slate-100 border p-3">
-                        <option value="0">Ofertas</option>
-                        <option value="1">Kebabs</option>
-                        <option value="2">Complementos</option>
-                        <option value="3">Pizzas</option>
-                        <option value="4">Bebidas</option>
-                        <option value="5">Postres</option>
-                    </select>
-                    <button type="submit" class="bg-blue-500 hover:bg-blue-600 p-3 text-white">
-                        Guardar
-                    </button>
-                </form>
-            </div>
-            
+        <!-- Productos -->
+        <div *ngIf="opcion=='productos'">
+            <pagina-productos (datosAlerta)="mostrarAlerta($event)"></pagina-productos>
         </div>
+
+        <!-- Cocina -->
+
+
+        <!-- Mostrador -->
+
+
+        <!-- Pedidos -->
     </div>
 </div>

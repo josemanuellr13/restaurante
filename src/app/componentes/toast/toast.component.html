@@ -1,0 +1,25 @@
+<div *ngIf="tipo=='error'" class="flex flex-row bg-slate-300 shadow-lg flex-wrap">
+    <div class="w-16 bg-red-500 flex items-center justify-center">
+        <i class="bi bi-x text-white text-5xl"></i>
+    </div>
+    <div class="bg-zinc-100 flex flex-col p-6">
+        <p class="text-red-500 text-xl">ERROR</p>
+        <hr  class="my-2">
+        <p>{{texto}}</p>
+
+    </div>
+    
+</div>
+
+<div *ngIf="tipo=='exito'" class="flex flex-row bg-slate-300 shadow-lg flex-wrap">
+    <div class="w-16 bg-green-500 flex items-center justify-center">
+        <i class="bi bi-check-circle-fill text-white text-4xl"></i>
+    </div>
+    <div class="bg-zinc-100 flex flex-col p-6">
+        <p class="text-green-600 text-xl">EXITO</p>
+        <hr  class="my-2">
+        <p>{{texto}}</p>
+
+    </div>
+    
+</div>

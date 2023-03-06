@@ -14,12 +14,13 @@ export class AutoservicioComponent implements OnInit {
   categoria  = "";
   idproducto = "";
   productoSeleccionado : Producto
-
+  alerta = false
+  mensajeAlerta = "Producto guardado correctamente"
   constructor(private route: ActivatedRoute, private _productosService : ProductosService) { }
   
 
   nav = [{"texto":"Carta","icono":"icono","activo":true},
-        {"texto":"Carrito","icono":"icono","activo":false},
+        {"texto":"Cesta","icono":"icono","activo":false},
         {"texto":"Pagar","icono":"icono","activo":false},
   ]
 
@@ -34,6 +35,7 @@ export class AutoservicioComponent implements OnInit {
   ]
   
   indexItemNavCartaActivo : number = 0
+  indexTamanyoSeleccionado : number = 0
 
   itemNavAbierto : boolean[] = [true, false, false]
 
@@ -43,6 +45,7 @@ export class AutoservicioComponent implements OnInit {
       this.idproducto = params['id'];
     }
     );
+
     // Si no hay ninguna categoria elegimos ofertas
     if(this.categoria == null){
       this.indexItemNavCartaActivo = 0
@@ -55,13 +58,35 @@ export class AutoservicioComponent implements OnInit {
     if(this.idproducto != null){
       this._productosService.getProducto(this.idproducto).subscribe(doc =>{
         this.productoSeleccionado = doc
+
+        this.categoria = this.categoriasCarta[this.productoSeleccionado.categoria].texto
+        const indice = this.categoriasCarta.findIndex(categoria => categoria.texto === this.categoria);
+        this.indexItemNavCartaActivo = indice
       })
+
     }
 
     this.actualizarProductos()
   }
 
+  seleccionarTamanyoMenu(i: number){
+      this.indexTamanyoSeleccionado = i
+  }
+
+  mostrarAlerta(texto : string){
+    this.alerta = true
+    this.mensajeAlerta = texto
+    setTimeout(() => {
+      this.alerta = false
+    }, 3000); 
+  }
+
+  addProductoACesta(){
+    this.mostrarAlerta("Producto añadido a la cesta")
+  }
+
   actualizarProductos(){
+
     this._productosService.getProductosByCategoria(this.indexItemNavCartaActivo).subscribe(doc => {
       this.productos = [];
       doc.forEach((element: any) => {

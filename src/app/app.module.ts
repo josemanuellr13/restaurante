@@ -18,6 +18,9 @@ import { environment } from '../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProductoComponent } from './componentes/producto/producto.component';
+import { ToastComponent } from './componentes/toast/toast.component';
+import { ProductosComponent } from './dashboard/paginas/productos/productos.component';
+import { OpcionTamanyoCartaComponent } from './componentes/opcion-tamanyo-carta/opcion-tamanyo-carta.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +34,9 @@ import { ProductoComponent } from './componentes/producto/producto.component';
     ItemCartaComponent,
     DashboardComponent,
     ProductoComponent,
+    ToastComponent,
+    ProductosComponent,
+    OpcionTamanyoCartaComponent,
   ],
   imports: [
     BrowserModule,

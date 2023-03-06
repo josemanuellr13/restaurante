@@ -1,8 +1,6 @@
 import { Component, OnInit , ViewChild} from '@angular/core';
 import { ProductosService } from '../services/productos.service';
-import { NgForm } from '@angular/forms';
-import { Producto } from '../models/Producto';
-
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,23 +9,31 @@ import { Producto } from '../models/Producto';
 })
 export class DashboardComponent implements OnInit {
 
-  @ViewChild('formGuardarProducto') miFormulario: NgForm;
-
-  constructor(private _productoService : ProductosService) { }
+  constructor(private _productoService : ProductosService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-  }
-
-  async guardarProducto(){
-    let producto : Producto = this.miFormulario.value
-    console.log(this.miFormulario.value);
-
-    let respuesta =  await this._productoService.guardarProducto(producto)
-
-    if(respuesta.id){
-      console.log("se inserto correctamente")
+    this.route.params.subscribe(params => {
+      this.opcion = params['opcion'];
     }
-    console.log(respuesta)
-
+    );
   }
+  
+  // Ajustes alerta
+  opcion = ""
+  alerta :  boolean = false
+  tipoAlerta = "exito"
+  mensajeAlerta = ""
+
+
+  mostrarAlerta(evento: { tipo: string, texto: string }) {
+    console.log("recibiendo")
+    this.tipoAlerta = evento.tipo;
+    this.mensajeAlerta = evento.texto;
+    this.alerta = true;
+
+    setTimeout(() => {
+      this.alerta = false;
+      location.reload();
+    }, 3000);
+  } 
 }

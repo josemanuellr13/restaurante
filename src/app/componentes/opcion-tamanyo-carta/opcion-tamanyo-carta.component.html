@@ -1,0 +1,9 @@
+<button *ngIf="activo" class="w-full flex flex-row bg-blue-100 ring-4 p-3 rounded">
+    <p class="w-3/4">{{nombre}}</p>
+    <p class="w-1/4 right-0">{{precio}}€</p>
+</button>
+
+<button *ngIf="!activo" class="w-full flex flex-row bg-gray-100 border  p-3 rounded">
+    <p class="w-3/4">{{nombre}}</p>
+    <p class="w-1/4 right-0">{{precio}}€</p>
+</button>
