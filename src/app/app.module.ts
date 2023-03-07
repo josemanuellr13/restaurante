@@ -21,6 +21,8 @@ import { ProductoComponent } from './componentes/producto/producto.component';
 import { ToastComponent } from './componentes/toast/toast.component';
 import { ProductosComponent } from './dashboard/paginas/productos/productos.component';
 import { OpcionTamanyoCartaComponent } from './componentes/opcion-tamanyo-carta/opcion-tamanyo-carta.component';
+import { CartaComponent } from './autoservicio/paginas/carta/carta.component';
+import { CestaComponent } from './autoservicio/paginas/cesta/cesta.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,8 @@ import { OpcionTamanyoCartaComponent } from './componentes/opcion-tamanyo-carta/
     ToastComponent,
     ProductosComponent,
     OpcionTamanyoCartaComponent,
+    CartaComponent,
+    CestaComponent,
   ],
   imports: [
     BrowserModule,

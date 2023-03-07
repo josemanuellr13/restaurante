@@ -1,15 +1,15 @@
-<button *ngIf="!activo" class="w-full h-full  bg-opacity-70 rounded flex items-center justify-center">
+<button [routerLink]="'/autoservicio/'+url" *ngIf="!activo" class="w-full h-full  bg-opacity-70 rounded flex items-center justify-center">
     <div class="relative">
-        <div *ngIf="texto=='Cesta'" class="absolute bg-gray-300 -top-4 -right-6 w-8 h-8 flex items-center justify-center rounded">0</div>
-        <i class="bi bi-shop text-gray-300 text-3xl"></i>
+        <div *ngIf="texto=='Cesta'" class="absolute bg-gray-300 -top-4 -right-6 w-8 h-8 flex items-center justify-center rounded">{{cantProductos}}</div>
+        <i class="bi bi-{{icon}} text-gray-300 text-3xl"></i>
         <p class="text-gray-300 text-xl">{{texto}}</p>
     </div>
 </button>
 
-<button *ngIf="activo" class="w-full h-full ring-4 bg-blue-300  bg-opacity-60 rounded flex items-center justify-center">
+<button [routerLink]="url" *ngIf="activo" class="w-full h-full ring-4 bg-blue-300  bg-opacity-60 rounded flex items-center justify-center">
     <div class="relative">
-        <div *ngIf="texto=='Cesta'" class="absolute bg-white -top-4 -right-6 w-8 h-8 flex items-center justify-center rounded ">0</div>
-        <i class="bi bi-shop text-white text-3xl"></i>
+        <div *ngIf="texto=='Cesta'" class="absolute bg-white -top-4 -right-6 w-8 h-8 flex items-center justify-center rounded ">{{cantProductos}}</div>
+        <i class="bi bi-{{icon}} text-white text-3xl"></i>
         <p class="text-white text-xl">{{texto}}</p>
     </div>
 </button>

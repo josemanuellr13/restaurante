@@ -13,16 +13,16 @@ const routes: Routes = [{
 },{
   path: "publicidad", component : PublicidadComponent
 },{
-  path:"autoservicio",component : AutoservicioComponent
+  path:"autoservicio",component : PublicidadComponent
 },
 {
-  path:"autoservicio/:categoria",component : AutoservicioComponent
+  path:"autoservicio/:opcionNav",component : AutoservicioComponent
 },
 {
-  path:"autoservicio/mipedido",component : AutoservicioComponent
-},
-{
-  path:"autoservicio/producto/:id",component : AutoservicioComponent
+  path:"autoservicio/:opcionNav/:categoria", component: AutoservicioComponent
+}
+,{
+  path:"autoservicio/:opcionNav/producto/:idproducto",component : AutoservicioComponent
 },
 {
   path:"dashboard",component : DashboardComponent

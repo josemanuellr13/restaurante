@@ -1,0 +1,9 @@
+{
+    {"texto":"Ofertas","icon":"icon-oferta"},
+    {"texto":"Kebabs","icon":"icon-kebab"},
+    {"texto":"Complementos","icon":"icon-fritos"},
+    {"texto":"Pizzas","icon":"icon-pizza"},
+    {"texto":"Bebidas","icon":"icon-bebida"},
+    {"texto":"Postres","icon":"icon-postres"},
+    {"texto":"Fritos","icon":""},
+}

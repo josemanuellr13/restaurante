@@ -1,0 +1,18 @@
+<div class="w-full">
+    <p class="text-lg"> Mi cesta</p>
+ </div>
+
+ <div class="overflow-y-auto w-full grow">
+         <div *ngFor="let prod of cesta" class="flex flex-row w-full h-48 bg-white rounded-lg overflow-hidden  shadow-lg mb-5">
+             <div class="p-3 bg-slate-100">
+                 <img src="{{prod.imagen}}" class="bg-white rounded-lg h-44">
+             </div>
+             <div class="flex flex-col grow p-6 bg-slate-100">
+                 <p class="font-semibold">{{prod.nombre}}</p>
+                 <p>{{prod.tamanyos==[""]?prod.tamanyos[0]:"Tamaño estándar"}}</p>
+             </div>
+             <div class="w-24 bg-slate-100 flex items-center justify-center">
+                 <button class="bg-red-500 w-12 h-12 flex items-center justify-center rounded-lg"><i class="bi bi-trash-fill text-xl text-white"></i></button>
+             </div>
+         </div>
+ </div>
