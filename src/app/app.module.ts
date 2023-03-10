@@ -23,6 +23,7 @@ import { ProductosComponent } from './dashboard/paginas/productos/productos.comp
 import { OpcionTamanyoCartaComponent } from './componentes/opcion-tamanyo-carta/opcion-tamanyo-carta.component';
 import { CartaComponent } from './autoservicio/paginas/carta/carta.component';
 import { CestaComponent } from './autoservicio/paginas/cesta/cesta.component';
+import { PagarComponent } from './autoservicio/paginas/pagar/pagar.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { CestaComponent } from './autoservicio/paginas/cesta/cesta.component';
     OpcionTamanyoCartaComponent,
     CartaComponent,
     CestaComponent,
+    PagarComponent,
   ],
   imports: [
     BrowserModule,

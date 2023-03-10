@@ -1,21 +1,20 @@
-import { PedidoProducto } from "./PedidoProducto";
-
+import { ProductoLinea } from "./ProductoLinea";
   
 interface PedidoJSON {
-    productos: PedidoProducto[]
+    productos: ProductoLinea[]
     codTemporal: string;
     fecha: Date
-    toJSON(): {productos: PedidoProducto[], codTemporal: string, fecha: Date};
+    toJSON(): {productos: ProductoLinea[], codTemporal: string, fecha: Date};
   }
   
   
 export class Pedido implements PedidoJSON {
     id?: string;
-    productos : PedidoProducto[]
+    productos : ProductoLinea[]
     fecha : Date;
     codTemporal : string;
 
-    constructor(productos : PedidoProducto[], fecha : Date, codTemporal : string){
+    constructor(productos : ProductoLinea[], fecha : Date, codTemporal : string){
         this.productos = productos;
         this.fecha = fecha;
         this.codTemporal = codTemporal

@@ -25,7 +25,6 @@ export class ProductosService {
   }
 
   getProducto(id: string) : Observable<any>{
-    console.log(id)
     return this.firebase.collection("productos").doc(id).valueChanges()
   }
 

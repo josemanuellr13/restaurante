@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SesionLocalService } from '../services/sesion-local.service';
 
 @Component({
   selector: 'app-publicidad',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PublicidadComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _sesionService: SesionLocalService) { }
 
   ngOnInit(): void {
+  }
+
+  resetearDatosSesion(){
+    this._sesionService.removeItem("cesta")
+    this._sesionService.setItem("cesta",[])
   }
 
 }

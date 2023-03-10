@@ -1,0 +1,42 @@
+<div class="flex flex-col w-full h-full p-6 items-center justify-center">
+    <!-- Si hay algun pedido-->
+    <div *ngIf="cesta.length" class="bg-white rounded-md shadow w-2/3 flex flex-col gap-4 p-3 shadow-lg">
+            <div>
+                <table class="w-full">
+                    <tr *ngFor="let prodLinea of cesta" class="border-b">
+                        <td class="text-center py-3 pr-2">
+                            {{prodLinea.cantidad}}
+                        </td>
+                        <td class="">
+                            {{prodLinea.producto.nombre}}
+                        </td>
+                        <td>
+                            {{prodLinea.tamanyo}}
+                        </td>
+                        <td>
+                            {{prodLinea.precio}}€
+                        </td>
+                        
+                    </tr>
+                </table>
+                <div class="mx-2">
+                     <p class="text-xl font-semibold">Total : {{total}}€</p>
+                </div>
+            </div>
+
+            <button class="block bg-green-600 p-4 rounded-md text-white">
+                Pagar con tarjeta <i class="bi bi-credit-card-fill text-xl ml-2"></i>
+            </button>
+
+            <button class="block bg-slate-700 p-4 rounded-md text-white">
+                Pagar en mostrador <i class="bi bi-person-fill text-2xl ml-2"></i>
+            </button>
+        </div>
+
+        <!-- Si no hay pedidos -->
+        <div *ngIf="!cesta.length" class="bg-white rounded-md shadow w-2/3 flex flex-col gap-4 p-3 shadow-lg">
+            <p class="text-center font-semibold text-xl">Parece que no has hecho ningún pedido</p>
+            <p class="text-center text-slate-700">Elije uno de nuestros maravillosos productos</p>
+            <img class="w-1/2 mx-auto" src="../../../../assets/vector_kebab.png" alt="">
+        </div>
+</div>

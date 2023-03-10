@@ -2,6 +2,9 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Producto } from '../../../models/Producto'
 import { ProductosService } from '../../../services/productos.service';
+import { SesionLocalService } from 'src/app/services/sesion-local.service';
+import { ProductoLinea } from '../../../models/ProductoLinea'
+
 
 @Component({
   selector: 'autoservicio-carta',
@@ -10,16 +13,16 @@ import { ProductosService } from '../../../services/productos.service';
 })
 export class CartaComponent implements OnInit {
 
-  @Input() categoria  = "";
+  @Input() categoria : string = "";
   @Input() idproducto = "";
   @Output() alerta = new EventEmitter<string>();
 
   productos : Producto[] = []
-  productoSeleccionado : Producto
+  productoSeleccionado : Producto = new Producto("", [], 0, "", "" , [])
   indexItemNavCartaActivo : number = 0
   indexTamanyoSeleccionado : number = 0
-
-  constructor(private _productosService : ProductosService) { }
+  cantidad : number = 1
+  constructor(private _productosService : ProductosService, private _sesionService : SesionLocalService) { }
   
   // FALTA IMPLEMENTAR ESTO EN JSON
   categoriasCarta = [
@@ -33,16 +36,11 @@ export class CartaComponent implements OnInit {
 
 
   ngOnInit(): void {
-    console.log(this.idproducto)
-
     // Si no hay ninguna categoria elegimos ofertas
     if(this.categoria == null){
-      console.log("categoria es nulo")
       this.indexItemNavCartaActivo = 0
     }else{
-      console.log("categoria no es nulo")
       const indice = this.categoriasCarta.findIndex(categoria => categoria.texto.toLowerCase() === this.categoria);
-      console.log("indice" + indice)
       this.indexItemNavCartaActivo = indice
     }
 
@@ -67,6 +65,15 @@ export class CartaComponent implements OnInit {
     this.actualizarProductos()
   }
 
+  modificarCantidad( i : number){
+    if(i == 0){
+        if(this.cantidad > 1){
+          this.cantidad = this.cantidad -1
+        }
+    }else if(i == 1){
+      this.cantidad = this.cantidad +1
+    }
+  }
 
   seleccionarTamanyoMenu(i: number){
     this.indexTamanyoSeleccionado = i
@@ -78,7 +85,14 @@ export class CartaComponent implements OnInit {
   }
 
   addProductoACesta(){
+    let tamanyoElegido = this.productoSeleccionado.tamanyos[this.indexTamanyoSeleccionado]
+    console.log(tamanyoElegido)
+    let precioElegido = this.productoSeleccionado.precio[this.indexTamanyoSeleccionado]
+    let productoLinea = new ProductoLinea(this.productoSeleccionado, precioElegido, tamanyoElegido, this.cantidad )
+    console.log(productoLinea)
+    this._sesionService.addProducto(productoLinea)
     this.mostrarAlerta("Producto añadido a la cesta")
+    
   }
 
   actualizarProductos(){
@@ -91,7 +105,15 @@ export class CartaComponent implements OnInit {
           ...element.payload.doc.data()
         })
       })
-
+      this.productos.sort((a, b) => {
+        if (a.nombre < b.nombre) {
+            return -1;
+        }
+        if (a.nombre > b.nombre) {
+            return 1;
+        }
+        return 0;
+    });
     }); 
   }
 } 

@@ -11,24 +11,24 @@
 
             <!-- Carta -->
             <div *ngIf="opcionNav == 'carta'" class="h-full">
-                <autoservicio-carta (alerta)="mostrarAlerta($event)" [categoria]="categoria" [idproducto]="idproducto"></autoservicio-carta>
+                <autoservicio-carta (alerta)="mostrarAlerta($event)"  [categoria]="categoria" [idproducto]="idproducto"></autoservicio-carta>
             </div>
 
 
             <!-- Cesta -->
-            <div *ngIf="opcionNav == 'cesta'" class="flex flex-col w-full h-full p-6">
-                <autoservicio-cesta [cesta]="cesta"></autoservicio-cesta>
+            <div *ngIf="opcionNav == 'cesta'" class="w-full h-full">
+                <autoservicio-cesta (alerta)="mostrarAlerta($event)"></autoservicio-cesta>
             </div>
 
             <!-- Pagar -->
-            <div *ngIf="opcionNav == 'pagar'" class="flex flex-col w-full h-full p-6">
-                <p>pagar</p>
+            <div *ngIf="opcionNav == 'pagar'" class="w-full h-full">
+                <autoservicio-pagar></autoservicio-pagar>
             </div>
     </div>
 
     <!-- Nav -->
     <div  class="grow bg-gradient-to-b from-zinc-800 to-zinc-600 flex flex-row">
         
-        <btn-autoservicio class="flex-grow p-3" *ngFor="let item of nav; index as i" [url]="item.url" [texto]="item.texto" [activo]="opcionNav == item.url" [cantProductos]="cesta.length" [icon]="item.icono"></btn-autoservicio>
+        <btn-autoservicio class="flex-grow p-3" *ngFor="let item of nav; index as i" [url]="item.url" [texto]="item.texto" [activo]="opcionNav == item.url" [cantProductos]="cesta==null?0:cesta.length" [icon]="item.icono"></btn-autoservicio>
     </div>
 </div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Producto } from '../models/Producto'
 import { ProductosService } from '../services/productos.service';
+import { SesionLocalService } from '../services/sesion-local.service';
 
 
 @Component({
@@ -16,7 +17,7 @@ export class AutoservicioComponent implements OnInit {
   cesta: Producto[] = [this.productoFicitcio]
   mensajeAlerta = ""
 
-  constructor(private route: ActivatedRoute, private _productosService : ProductosService) { }
+  constructor(private route: ActivatedRoute, private _productosService : ProductosService , private _sesionService : SesionLocalService) { }
   
 
   nav = [{"texto":"Carta","icono":"book","url":"carta"},
@@ -42,14 +43,18 @@ export class AutoservicioComponent implements OnInit {
       this.opcionNav = params['opcionNav'];
       this.idproducto = params['idproducto'];
       this.categoria = params['categoria'];
+    });
 
-    }
-    );
+    this.actualizarCantidadCesta()
   }
 
-  
+  actualizarCantidadCesta(){
+    this.cesta = this._sesionService.getItem("cesta")
+  }
+
   mostrarAlerta(texto : string){
     this.alerta = true
+    this.actualizarCantidadCesta()
     this.mensajeAlerta = texto
     setTimeout(() => {
       this.alerta = false
