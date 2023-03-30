@@ -21,10 +21,11 @@ export class ProductosComponent implements OnInit {
     }
     );
 
-    console.log
     this.getProductos()
+    
   }
 
+  // Volcamos productos de BBDD en this.productos
   async getProductos(){
     this._productoService.getProductos().subscribe(doc => {
       this.productos = [];
@@ -33,8 +34,12 @@ export class ProductosComponent implements OnInit {
         this.productos.push({
           id: element.payload.doc.id,
           ...element.payload.doc.data()
+          
         })
       })
+
+      this.productosPaginado = this.productos
+      this.actualizarTabla()
     }); 
   }
 
@@ -58,6 +63,56 @@ export class ProductosComponent implements OnInit {
   mostrarAlerta(tipo : string, mensaje: string){
     console.log("enviando")
     this.datosAlerta.emit({tipo: tipo, texto: mensaje});
+  }
+
+  // Datos filtrar producto
+  nombreProductoFiltrar = ""
+  categoriaProductoFiltrar = ""
+  filtrarProductos(){
+      let datosFiltrados : Producto[] = this.productos
+      
+      if(this.nombreProductoFiltrar){
+        datosFiltrados  = this.productos.filter((producto) => producto.nombre.toLowerCase().includes(this.nombreProductoFiltrar.toLowerCase()));
+      }
+
+      if(this.categoriaProductoFiltrar){
+        datosFiltrados  = this.productos.filter((producto) => producto.nombre.toLowerCase().includes(this.nombreProductoFiltrar.toLowerCase()));
+      }
+    console.log("Cant prod tras filtrar " + datosFiltrados.length)
+    this.productosPaginado = datosFiltrados
+    this.actualizarTabla()
+  }
+
+
+  productosPaginado : Producto[] = []
+  productosMostrado : Producto[] = []
+  indexPaginadoActual = 0
+  maxProductosPaginado = 5
+  botonesPaginado = []
+
+  actualizarTabla(){
+    let inicio = this.indexPaginadoActual * this.maxProductosPaginado
+    let fin = inicio + this.maxProductosPaginado
+
+    let productosAmostrar = this.productosPaginado.slice(inicio, fin);
+    let cantBotonesPaginado = Math.ceil(this.productosPaginado.length / this.maxProductosPaginado);
+
+    this.botonesPaginado = []
+    this.productosMostrado = productosAmostrar
+    for(let i = 0; i < cantBotonesPaginado; i++){
+      this.botonesPaginado.push(i)
+    }
+  }
+
+  resetearFiltrado(){
+    this.nombreProductoFiltrar = ""
+    this.productosPaginado = this.productos
+    this.actualizarTabla()
+  }
+
+  cambiarPaginado(index : number){
+    this.indexPaginadoActual = index
+    this.actualizarTabla()
   }
 
   activarAddProducto(){

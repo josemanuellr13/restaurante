@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { TurnosService } from '../services/turnos.service';
 
 @Component({
   selector: 'app-turno',
@@ -7,12 +8,11 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 })
 export class TurnoComponent implements OnInit {
 
-  preparando : string[] =  ["012","023","024","012","023","024"]
+  preparando : string[] =  []
   listos : string[] =  []
-
   puntos : string = ""
 
-  constructor() { }
+  constructor(private _turnoService : TurnosService) { }
   
   puntosSuspensivos(){
     setInterval(() => {
@@ -25,8 +25,21 @@ export class TurnoComponent implements OnInit {
       }, 800);
   }
 
+  obtenerTurnos(){
+    this._turnoService.getTurnos().subscribe(doc => {
+      this.preparando = doc.preparando
+      this.listos = doc.listo
+    }
+    );
+  }
+
   ngOnInit(): void {
     this.puntosSuspensivos()
+    this.obtenerTurnos()
+    
+    setInterval(() => {
+      this.obtenerTurnos()
+    }, 800);
   }
 
 }

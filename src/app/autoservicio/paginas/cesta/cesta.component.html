@@ -15,7 +15,8 @@
                  </div>
                  <div class=" flex flex-col grow p-6 bg-slate-100">
                      <p class="font-semibold"><span *ngIf="prodLinea.cantidad">x{{prodLinea.cantidad}} </span>{{prodLinea.producto.nombre}}</p>
-                     <p class="text-slate-700">{{prodLinea.producto.tamanyos==[""]?prodLinea.producto.tamanyos[0]:"Tamaño estándar"}}</p>
+                    
+                     <p class="text-slate-700">{{prodLinea.tamanyo}}</p>
                      <P class="mt-1 text-3xl font-semibold order-last">{{prodLinea.precio * prodLinea.cantidad}}€</P>
                  </div>
                  <div class="w-24 bg-slate-100 flex items-center justify-center">

@@ -12,6 +12,14 @@ export class ProductoComponent implements OnInit {
 
   constructor() { }
 
+  tieneVariosPrec(producto : Producto) : boolean{
+    if(producto.precio.length >1 ){
+      return true
+    } else{
+      return false
+    }
+  }
+
   ngOnInit(): void {
   }
 
