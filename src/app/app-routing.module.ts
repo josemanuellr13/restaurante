@@ -5,7 +5,8 @@ import { HomeComponent } from './home/home.component';
 import { AutoservicioComponent } from './autoservicio/autoservicio.component';
 import { PublicidadComponent } from './publicidad/publicidad.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-
+import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './auth.guard';
 const routes: Routes = [{
   path:"turno", component: TurnoComponent
 },{
@@ -25,12 +26,14 @@ const routes: Routes = [{
   path:"autoservicio/:opcionNav/producto/:idproducto",component : AutoservicioComponent
 },
 {
-  path:"dashboard",component : DashboardComponent
+  path:"dashboard",component : DashboardComponent, canActivate: [AuthGuard] 
 }
 ,{
   path:"dashboard/:opcion",component : DashboardComponent
 },{
   path:"dashboard/:opcion/:id",component : DashboardComponent
+},{
+  path:"login", component: LoginComponent
 }];
 
 @NgModule({

@@ -25,6 +25,7 @@ import { CartaComponent } from './autoservicio/paginas/carta/carta.component';
 import { CestaComponent } from './autoservicio/paginas/cesta/cesta.component';
 import { PagarComponent } from './autoservicio/paginas/pagar/pagar.component';
 import { BtnPaginadoTablaComponent } from './componentes/btn-paginado-tabla/btn-paginado-tabla.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { BtnPaginadoTablaComponent } from './componentes/btn-paginado-tabla/btn-
     CestaComponent,
     PagarComponent,
     BtnPaginadoTablaComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
