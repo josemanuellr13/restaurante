@@ -1,0 +1,48 @@
+<div class="bg-white rounded p-6 shadow-lg h-full">
+    <h2 class="text-2xl font-semibold text-slate-800">Pedidos</h2>
+    <hr class="border-zinc-400 my-3">
+
+    <!-- Por cada pedido-->
+    <div  class="flex flex-col gap-4">
+        <div *ngFor="let pedido of pedidos" class="w-full p-2 flex justify-between flex-row border bg-slate-100 rounded-lg">
+            
+            <!-- Numero de pedido-->
+            <div class="w-20 h-20 bg-white flex items-center justify-center border h-full">
+                <p class="text-2xl font-semibold">{{pedido.pedido.codTemporal}}</p>
+                
+                
+            </div>
+
+            <!-- Contenido -->
+            <div class=" flex-1 mx-3">
+                <p class="text-slate-800">Hace {{minutosTranscurridos(pedido.pedido.fecha) + ' minutos'}}</p>
+
+                <table *ngFor="let prod of pedido.pedido.productos" class="xbg-red-200 w-full ">
+                    <tr class="border-b ">
+                        <td class="py-2">x{{prod.cantidad}}</td>
+                        <td>{{prod.producto.nombre}}</td>
+                        <td>{{prod.tamanyo}}</td>
+                    </tr>
+                </table>
+               
+                
+            </div>
+
+            <!-- Botones -->
+            <div class="flex flex-row ">
+                <!-- Si es por empezar-->
+                <div *ngIf="pedido.estado == 'porempezar'">
+                    <button (click)="preparar(pedido.pedido)" class="h-20 bg-blue-500 hover:bg-blue-600 px-8 text-white mr-6">Preparar</button>
+                    <button disabled class="h-20 bg-gray-300 text-slate-600 px-5">Listo</button>
+                </div>
+
+                <!-- Si es preparando-->
+                <div  *ngIf="pedido.estado == 'preparando'">
+                    <button disabled class="h-20 bg-gray-300 px-5 text-gray-500 mr-6">Preparando</button>
+                    <button (click)="listo(pedido.pedido)"  class="h-20 bg-blue-500 text-white px-5">Listo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -34,6 +34,7 @@ export class SesionLocalService {
   }
 
   public addProducto(producto : ProductoLinea){
+    console.log(producto)
     let cesta  : ProductoLinea[] = this.getItem("cesta")
     cesta.push(producto)
     this.setItem("cesta", cesta)

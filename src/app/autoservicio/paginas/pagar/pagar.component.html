@@ -3,7 +3,7 @@
     <div *ngIf="cesta.length" class="bg-white rounded-md shadow w-2/3 flex flex-col gap-4 p-3 shadow-lg">
             <div>
                 <table class="w-full">
-                    <tr *ngFor="let prodLinea of cesta" class="border-b">
+                    <tr *ngFor="let prodLinea of cesta" class="border-b ">
                         <td class="text-center py-3 pr-2">
                             {{prodLinea.cantidad}}
                         </td>
@@ -14,21 +14,21 @@
                             {{prodLinea.tamanyo}}
                         </td>
                         <td>
-                            {{prodLinea.precio}}€
+                            {{prodLinea.precio * prodLinea.cantidad}}€
                         </td>
                         
                     </tr>
                 </table>
-                <div class="mx-2">
-                     <p class="text-xl font-semibold">Total : {{total}}€</p>
+                <div class="mt-4">
+                     <p class="text-xl font-semibold float-right">Total : {{total}}€</p>
                 </div>
             </div>
 
-            <button class="block bg-green-600 p-4 rounded-md text-white">
+            <button (click)="pagarTarjeta()" class="block bg-green-600 hover:bg-green-700 p-4 rounded-md text-white">
                 Pagar con tarjeta <i class="bi bi-credit-card-fill text-xl ml-2"></i>
             </button>
 
-            <button class="block bg-slate-700 p-4 rounded-md text-white">
+            <button class="block bg-slate-700 hover:bg-slate-800 p-4 rounded-md text-white">
                 Pagar en mostrador <i class="bi bi-person-fill text-2xl ml-2"></i>
             </button>
         </div>

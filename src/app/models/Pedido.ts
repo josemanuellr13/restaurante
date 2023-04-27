@@ -1,20 +1,20 @@
 import { ProductoLinea } from "./ProductoLinea";
-  
+import { Timestamp } from '@firebase/firestore';
 interface PedidoJSON {
     productos: ProductoLinea[]
     codTemporal: string;
-    fecha: Date
-    toJSON(): {productos: ProductoLinea[], codTemporal: string, fecha: Date};
+    fecha: Timestamp
+    toJSON(): {productos: ProductoLinea[], codTemporal: string, fecha: Timestamp};
   }
   
   
 export class Pedido implements PedidoJSON {
     id?: string;
     productos : ProductoLinea[]
-    fecha : Date;
+    fecha : Timestamp;
     codTemporal : string;
 
-    constructor(productos : ProductoLinea[], fecha : Date, codTemporal : string){
+    constructor(productos : ProductoLinea[], fecha : Timestamp, codTemporal : string){
         this.productos = productos;
         this.fecha = fecha;
         this.codTemporal = codTemporal

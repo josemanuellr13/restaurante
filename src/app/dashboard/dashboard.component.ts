@@ -33,7 +33,7 @@ export class DashboardComponent implements OnInit {
 
     setTimeout(() => {
       this.alerta = false;
-      location.reload();
+      //location.reload();
     }, 3000);
   } 
 }

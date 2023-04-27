@@ -155,8 +155,8 @@ export class ProductosComponent implements OnInit {
 
     // Si solo hay 1 tamaño/precio
     if(this.tamanyosProducto.length == 1){
-      console.log(valores.precio)
-        producto = new Producto(valores.nombre, valores.precio, valores.categoria, valores.imagen, valores.texto, this.tamanyosProducto)
+      let pre = [valores.precio]
+      producto = new Producto(valores.nombre, pre, valores.categoria, valores.imagen, valores.texto, ["Tamaño estándar"])
 
     // Si hay mas de 1 tamaño
     }else{

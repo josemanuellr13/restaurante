@@ -26,7 +26,8 @@ const routes: Routes = [{
   path:"autoservicio/:opcionNav/producto/:idproducto",component : AutoservicioComponent
 },
 {
-  path:"dashboard",component : DashboardComponent, canActivate: [AuthGuard] 
+  path:"dashboard",component : DashboardComponent
+  //path:"dashboard",component : DashboardComponent, canActivate: [AuthGuard] 
 }
 ,{
   path:"dashboard/:opcion",component : DashboardComponent

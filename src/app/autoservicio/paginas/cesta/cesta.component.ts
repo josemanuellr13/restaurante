@@ -11,6 +11,7 @@ import { SesionLocalService } from 'src/app/services/sesion-local.service';
 })
 export class CestaComponent implements OnInit {
   cesta : ProductoLinea[] = []
+  
   @Output() alerta = new EventEmitter<string>();
 
   constructor(private _sesionService : SesionLocalService) { }

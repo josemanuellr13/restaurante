@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Producto } from 'src/app/models/Producto';
+import { Pedido } from 'src/app/models/Pedido';
 import { ProductoLinea } from 'src/app/models/ProductoLinea';
-
 import { SesionLocalService } from 'src/app/services/sesion-local.service';
+import { PedidosService } from 'src/app/services/pedidos.service';
+import { TurnosService } from 'src/app/services/turnos.service';
+import { Timestamp } from '@firebase/firestore';
 
 @Component({
   selector: 'autoservicio-pagar',
@@ -12,7 +14,7 @@ import { SesionLocalService } from 'src/app/services/sesion-local.service';
 export class PagarComponent implements OnInit {
 
   cesta : ProductoLinea[] = []
-  constructor(private _sesionService : SesionLocalService) { }
+  constructor(private _sesionService : SesionLocalService, private _pedidosService : PedidosService, private _turnosService : TurnosService) { }
   total : number = 0
 
   ngOnInit(): void {
@@ -20,12 +22,22 @@ export class PagarComponent implements OnInit {
 
     let total = 0
     for(let prod of this.cesta){
-      console.log(prod.precio)
-      let precio =  prod.precio * prod.cantidad
-      console.log(precio)
+      let precio = prod.precio * prod.cantidad
       total +=precio
     }
+
     this.total = total
   }
 
+  
+
+  async pagarTarjeta(){
+    let cod = this._turnosService.getNuevoTurno()
+    console.log(cod)
+    let productos = this._sesionService.getItem("cesta")
+    let fecha = Timestamp.now()
+    let pedido = new Pedido(productos, fecha, cod+"")
+
+    this._pedidosService.guardarPedido(pedido,"porEmpezar")
+  }
 }

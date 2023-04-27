@@ -7,16 +7,16 @@
         <div class="my-5">
             <div class="mb-4">
                 <p class="mb-1">Correo electrónico:</p>
-                <input type="text" class="pl-2 w-full bg-slate-100 border border-slate-200 focus:ring-4 focus:outline-0 rounded-md h-8">
+                <input [(ngModel)]="email" type="text" class="pl-2 w-full bg-slate-100 border border-slate-200 focus:ring-4 focus:outline-0 rounded-md h-8">
             </div>
 
             <div class="relative">
                 <p class="mb-1">Contraseña:</p>
                 <input [type]="mostrandoClave ? 'text' : 'password'" class="pl-2 w-full bg-slate-100 border border-slate-200 focus:ring-4 focus:outline-0 rounded-md h-8">
-                <button (click)="mostrarClave()" class=" absolute right-3 bottom-1">Mostrar</button>
+                <button [(ngModel)]="password" (click)="mostrarClave()" class=" absolute right-3 bottom-1">Mostrar</button>
             </div>
         </div>
 
-        <button class="bg-blue-500 text-white w-1/3 p-3 rounded mx-auto hover:bg-blue-600">Entrar</button>
+        <button (click)="btnLogin()" class="bg-blue-500 text-white w-1/3 p-3 rounded mx-auto hover:bg-blue-600">Entrar</button>
     </div>
 </div>

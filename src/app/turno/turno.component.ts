@@ -25,21 +25,39 @@ export class TurnoComponent implements OnInit {
       }, 800);
   }
 
-  obtenerTurnos(){
-    this._turnoService.getTurnos().subscribe(doc => {
-      this.preparando = doc.preparando
-      this.listos = doc.listo
+  obtenerPreparando(){
+    this._turnoService.getPreparando().subscribe(docs => {
+      for (let i = 0; i < docs.length; i++) {
+        
+        this.preparando.push(docs[i].codTemporal);
+      }
+      
     }
     );
   }
 
+  obtenerListo(){
+    this._turnoService.getListos().subscribe(docs => {
+      for (let i = 0; i < docs.length; i++) {
+        this.listos.push(docs[i].codTemporal);
+      }
+      
+    }
+    );
+  }
+
+
+ 
+
+
   ngOnInit(): void {
     this.puntosSuspensivos()
-    this.obtenerTurnos()
     
-    setInterval(() => {
-      this.obtenerTurnos()
-    }, 800);
+
+    setTimeout( () => {
+      this.obtenerPreparando()
+      this.obtenerListo()
+    }, 500)
   }
 
 }

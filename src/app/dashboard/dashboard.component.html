@@ -6,9 +6,16 @@
 
     <!-- Nav izquierdo -->
     <div class="bg-gradient-to-b from-zinc-800 to-zinc-600 w-1/4 p-6">
-        <img src="../../assets/logo-blanca.png" alt="">
+        <p class="text-center text-white">DashBoard de</p>
+        <img src="../../assets/logo-blanca.png"  class="mb-4">
 
-        <button routerLink="/dashboard/productos" routerLinkActive="router-link-active"  class="bg-zinc-500  w-full h-20 rounded text-xl text-white">Productos</button>
+        <div class="flex flex-col gap-5">
+            <button routerLink="/dashboard/cocina"  routerLinkActive="router-link-active"  class="bg-zinc-600 border border-zinc-500 w-full h-16 rounded text-lg text-white">Pedidos</button>
+            <button routerLink="/dashboard/productos"  routerLinkActive="router-link-active"  class="bg-zinc-600 border border-zinc-500 w-full h-16 rounded text-lg text-white">Inventario de productos</button>
+            <button routerLink="/dashboard/administracion"  routerLinkActive="router-link-active"  class="bg-zinc-600 border border-zinc-500 w-full h-16 rounded text-lg text-white">Administración</button>    
+        </div>
+      
+    
     </div>
 
 
@@ -21,6 +28,9 @@
         </div>
 
         <!-- Cocina -->
+        <div *ngIf="opcion=='cocina'" class="h-full">
+            <pagina-cocina (datosAlerta)="mostrarAlerta($event)"></pagina-cocina>
+        </div>
 
 
         <!-- Mostrador -->

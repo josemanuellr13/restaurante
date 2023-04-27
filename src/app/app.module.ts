@@ -12,10 +12,13 @@ import { ItemNavCartaComponent } from './componentes/item-nav-carta/item-nav-car
 import { ItemCartaComponent } from './componentes/item-carta/item-carta.component';
 import { FormsModule } from '@angular/forms';
 
+
 // Importamos modulos de firebase
 import { AngularFireModule } from '@angular/fire/compat';
-import { environment } from '../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+
+
+import { environment } from '../environments/environment';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProductoComponent } from './componentes/producto/producto.component';
 import { ToastComponent } from './componentes/toast/toast.component';
@@ -26,6 +29,8 @@ import { CestaComponent } from './autoservicio/paginas/cesta/cesta.component';
 import { PagarComponent } from './autoservicio/paginas/pagar/pagar.component';
 import { BtnPaginadoTablaComponent } from './componentes/btn-paginado-tabla/btn-paginado-tabla.component';
 import { LoginComponent } from './login/login.component';
+import { FIREBASE_OPTIONS } from '@angular/fire/compat';
+import { CocinaComponent } from './dashboard/paginas/cocina/cocina.component';
 
 @NgModule({
   declarations: [
@@ -47,16 +52,20 @@ import { LoginComponent } from './login/login.component';
     PagarComponent,
     BtnPaginadoTablaComponent,
     LoginComponent,
+    CocinaComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
+    
     AngularFirestoreModule,
+
     FormsModule
 
   ],
-  providers: [],
+  providers: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
