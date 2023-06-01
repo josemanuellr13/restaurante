@@ -67,7 +67,10 @@ export class ProductosComponent implements OnInit {
 
   // Datos filtrar producto
   nombreProductoFiltrar = ""
-  categoriaProductoFiltrar = ""
+  categoriaProductoFiltrar = -1
+  precioDesde = null
+  precioHasta = null
+
   filtrarProductos(){
       let datosFiltrados : Producto[] = this.productos
       
@@ -75,10 +78,25 @@ export class ProductosComponent implements OnInit {
         datosFiltrados  = this.productos.filter((producto) => producto.nombre.toLowerCase().includes(this.nombreProductoFiltrar.toLowerCase()));
       }
 
-      if(this.categoriaProductoFiltrar){
-        datosFiltrados  = this.productos.filter((producto) => producto.nombre.toLowerCase().includes(this.nombreProductoFiltrar.toLowerCase()));
+      if(this.categoriaProductoFiltrar != -1){
+        datosFiltrados  = this.productos.filter((producto) => producto.categoria === this.categoriaProductoFiltrar);
       }
-    console.log("Cant prod tras filtrar " + datosFiltrados.length)
+
+      if(this.precioDesde){
+        datosFiltrados  = this.productos.filter((producto) => {
+          const precioMasBajo = Math.min(...producto.precio);
+          return precioMasBajo > this.precioDesde
+        } );
+      }
+
+      if(this.precioHasta){
+        datosFiltrados  = this.productos.filter((producto) => {
+          const precioMasAlto = Math.max(...producto.precio);
+          return precioMasAlto < this.precioHasta
+        });
+      }
+    
+
     this.productosPaginado = datosFiltrados
     this.actualizarTabla()
   }
@@ -106,6 +124,9 @@ export class ProductosComponent implements OnInit {
 
   resetearFiltrado(){
     this.nombreProductoFiltrar = ""
+    this.categoriaProductoFiltrar = -1
+    this.precioDesde = null
+    this.precioHasta = null
     this.productosPaginado = this.productos
     this.actualizarTabla()
   }
@@ -121,7 +142,13 @@ export class ProductosComponent implements OnInit {
     }else{
       this.mostrarAddProducto = true
     }
+  } 
+
+  onInputChange(event: any) {
+    
+    this.filtrarProductos();
   }
+
 
   // En la tabla de añadir producto, agregamos otro tamaño
   agregarTamanyoProducto(){

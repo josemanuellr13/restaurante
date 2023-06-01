@@ -79,7 +79,8 @@
             <hr class="border-zinc-400 my-3">
 
             <div class="bg-slate-100 rounded p-3 flex flex-row flex-wrap mb-3 gap-3">
-                <input [(ngModel)]="nombreProductoFiltrar" type="text" placeholder="Nombre del producto" class="p-4 grow border border-slate-300">
+                <input [(ngModel)]="nombreProductoFiltrar" (input)="onInputChange($event)" type="text" placeholder="Nombre del producto" class="p-4 grow border border-slate-300">
+                
                 <select [(ngModel)]="categoriaProductoFiltrar" name="" id="" class="px-3 border border-slate-300">
                         <option value="" selected> </option>
                         <option value="0" >Ofertas</option>
@@ -89,9 +90,10 @@
                         <option value="4">Bebidas</option>
                         <option value="5">Postres</option>
                 </select>
-                <input type="number" class="px-3 border border-slate-300" placeholder="Precio desde...">
-                <input type="number" class="px-3 border border-slate-300" placeholder="Precio hasta...">
-                <button (click)="resetearFiltrado()" class="bg-blue-500 hover:bg-blue-600 px-3 text-white">Resetear</button>
+                    
+                <input type="number" [(ngModel)]="precioDesde" class="px-3 border border-slate-300" placeholder="Precio desde...">
+                <input type="number" [(ngModel)]="precioHasta" class="px-3 border border-slate-300" placeholder="Precio hasta...">
+                <button (click)="resetearFiltrado()" class="bg-blue-500 hover:bg-blue-600 px-3 h-16 text-white">Resetear</button>
                 <button (click)="filtrarProductos()" class="bg-green-600 hover:bg-green-700 px-3 text-white">Filtrar</button>
             </div>
 
@@ -99,8 +101,8 @@
                 <thead class="py-3">
                     <th class="py-2">Foto</th>
                     <th class="py-2">Nombre</th>
-                    <th>Texto</th>
-                    <th>Categoria</th>
+                    <th>Descripción</th>
+                    <th>Precio</th>
                     <th>Opciones</th>
                 </thead>
 
@@ -115,8 +117,9 @@
                         <td class="border-r">
                             <p class="text-center">{{prod.texto}}</p>
                         </td>
-                        <td class="border-r">
-                            {{prod.categoria}}
+                        <td class="border-r text-center p-2">
+                            <span class="block"  [ngClass]="i % 2 === 0 ? 'fondo-blanco' : 'fondo-gris'" *ngFor="let prec of prod.precio; let i = index">{{prec + "Є"}}</span>
+                           
                         </td>
                         <td class="flex flex-row gap-5 items-center justify-center pt-6">
                             <button routerLink="/dashboard/productos/{{prod.id}}" class="w-12 h-12 rounded bg-blue-500 hover:bg-blue-600"><i class="bi bi-pencil-fill text-white text-xl"></i></button>

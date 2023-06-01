@@ -11,6 +11,7 @@ export class LoginComponent implements OnInit {
   password = ""
   constructor(private LoginService: LoginService) { }
   mostrandoClave: boolean = false
+  
   mostrarClave(){
     if(this.mostrandoClave){
       this.mostrandoClave = false
@@ -18,14 +19,14 @@ export class LoginComponent implements OnInit {
       this.mostrandoClave = true
     }
   }
+  
   ngOnInit(): void {
   }
 
   btnLogin(){
     console.log("email = " + this.email)
-    this.LoginService.login(this.email, this.password).then( response =>  {
+    this.LoginService.SignIn(this.email, this.password).then( response =>  {
         console.log(response)
-        alert("exito")
       }
     )
     .catch( error => {
