@@ -1,0 +1,6 @@
+
+<!-- Inactivo -->
+<button *ngIf="shortcut !== opcion" [routerLink]="url"  routerLinkActive="router-link-active"  class="bg-zinc-600 border border-zinc-500 w-full h-16 rounded text-lg text-white">{{nombre}}</button>    
+
+<!-- Activo -->
+<button *ngIf="shortcut == opcion" [routerLink]="url"  routerLinkActive="router-link-active"  class="bg-blue-200 bg-opacity-75 ring-4 ring-blue-400 border border-zinc-500 w-full h-16 rounded text-lg text-black">{{nombre}}</button>    

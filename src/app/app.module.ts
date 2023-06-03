@@ -16,6 +16,7 @@ import { FormsModule } from '@angular/forms';
 // Importamos modulos de firebase
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 
 
 import { environment } from '../environments/environment';
@@ -31,6 +32,8 @@ import { BtnPaginadoTablaComponent } from './componentes/btn-paginado-tabla/btn-
 import { LoginComponent } from './login/login.component';
 import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 import { CocinaComponent } from './dashboard/paginas/cocina/cocina.component';
+import { BtnNavDashboardComponent } from './componentes/btn-nav-dashboard/btn-nav-dashboard.component';
+import { MostradorComponent } from './dashboard/paginas/mostrador/mostrador.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +56,8 @@ import { CocinaComponent } from './dashboard/paginas/cocina/cocina.component';
     BtnPaginadoTablaComponent,
     LoginComponent,
     CocinaComponent,
+    BtnNavDashboardComponent,
+    MostradorComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,7 +65,7 @@ import { CocinaComponent } from './dashboard/paginas/cocina/cocina.component';
     AngularFireModule.initializeApp(environment.firebase),
     
     AngularFirestoreModule,
-
+    AngularFireAuthModule,
     FormsModule
 
   ],

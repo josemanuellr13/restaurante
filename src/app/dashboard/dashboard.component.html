@@ -10,9 +10,10 @@
         <img src="../../assets/logo-blanca.png"  class="mb-4">
 
         <div class="flex flex-col gap-5">
-            <button routerLink="/dashboard/cocina"  routerLinkActive="router-link-active"  class="bg-zinc-600 border border-zinc-500 w-full h-16 rounded text-lg text-white">Pedidos</button>
-            <button routerLink="/dashboard/productos"  routerLinkActive="router-link-active"  class="bg-zinc-600 border border-zinc-500 w-full h-16 rounded text-lg text-white">Inventario de productos</button>
-            <button routerLink="/dashboard/administracion"  routerLinkActive="router-link-active"  class="bg-zinc-600 border border-zinc-500 w-full h-16 rounded text-lg text-white">Administración</button>    
+            <btn-nav-dashboard url="/dashboard/cocina" nombre="Cocina" shortcut = "cocina"></btn-nav-dashboard>
+            <btn-nav-dashboard url="/dashboard/mostrador" nombre="Mostrador" shortcut = "mostrador"></btn-nav-dashboard>
+            <btn-nav-dashboard url="/dashboard/productos" nombre="Listado de productos" shortcut = "productos"></btn-nav-dashboard>
+            <btn-nav-dashboard url="/dashboard/administracion" nombre="Administración" shortcut = "administracion"></btn-nav-dashboard>
         </div>
       
     
@@ -32,9 +33,10 @@
             <pagina-cocina (datosAlerta)="mostrarAlerta($event)"></pagina-cocina>
         </div>
 
-
         <!-- Mostrador -->
-
+        <div *ngIf="opcion=='mostrador'" class="h-full">
+            <pagina-mostrador (datosAlerta)="mostrarAlerta($event)"></pagina-mostrador>
+        </div>
 
         <!-- Pedidos -->
     </div>

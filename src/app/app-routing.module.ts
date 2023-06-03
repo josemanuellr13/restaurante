@@ -8,13 +8,13 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.guard';
 const routes: Routes = [{
-  path:"turno", component: TurnoComponent
+  path:"turno", component: TurnoComponent , canActivate: [AuthGuard] 
 },{
-  path: "", component : HomeComponent
+  path: "", component : HomeComponent, canActivate: [AuthGuard] 
 },{
   path: "publicidad", component : PublicidadComponent
 },{
-  path:"autoservicio",component : PublicidadComponent
+  path:"autoservicio",component : PublicidadComponent, canActivate: [AuthGuard] 
 },
 {
   path:"autoservicio/:opcionNav",component : AutoservicioComponent
@@ -26,8 +26,7 @@ const routes: Routes = [{
   path:"autoservicio/:opcionNav/producto/:idproducto",component : AutoservicioComponent
 },
 {
-  path:"dashboard",component : DashboardComponent
-  //path:"dashboard",component : DashboardComponent, canActivate: [AuthGuard] 
+  path:"dashboard", component : DashboardComponent, canActivate: [AuthGuard] 
 }
 ,{
   path:"dashboard/:opcion",component : DashboardComponent

@@ -36,6 +36,7 @@ export class LoginService {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(
       `users/${user.uid}`
     );
+    
     const userData: User = {
       uid: user.uid,
       email: user.email,
@@ -43,10 +44,14 @@ export class LoginService {
       photoURL: user.photoURL,
       emailVerified: user.emailVerified,
     };
+
     return userRef.set(userData, {
       merge: true,
     });
   }
+
+
+
   // Sign in with email/password
   SignIn(email: string, password: string) {
     return this.afAuth
@@ -55,13 +60,21 @@ export class LoginService {
         this.SetUserData(result.user);
         this.afAuth.authState.subscribe((user) => {
           if (user) {
-            console.log("funciona bitch")
+            console.log("Usuario correcto")
             }
         });
       })
-      .catch((error) => {
-        window.alert(error.message);
-      });
+      
+  }
+
+  async isLoggedIn(): Promise<boolean> {
+    const user = await this.afAuth.currentUser;
+    return !!user;
+  }
+
+   // Método para obtener el usuario actual
+   getCurrentUser(): any {
+    return this.userData;
   }
 
 

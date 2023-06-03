@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../services/login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -9,9 +10,14 @@ import { LoginService } from '../services/login.service';
 export class LoginComponent implements OnInit {
   email = ""
   password = ""
-  constructor(private LoginService: LoginService) { }
+  error : boolean = false
+  textoError = "error"
+  constructor(private LoginService: LoginService, private router: Router) { }
   mostrandoClave: boolean = false
   
+  userData : any = {
+    email : "a"
+  }
   mostrarClave(){
     if(this.mostrandoClave){
       this.mostrandoClave = false
@@ -24,13 +30,14 @@ export class LoginComponent implements OnInit {
   }
 
   btnLogin(){
-    console.log("email = " + this.email)
     this.LoginService.SignIn(this.email, this.password).then( response =>  {
-        console.log(response)
+      this.userData = this.LoginService.getCurrentUser()
+      this.router.navigate(['/']);
       }
     )
     .catch( error => {
-      console.log(error)
+      this.error = true
+      this.textoError = error
     })
   }
 }
