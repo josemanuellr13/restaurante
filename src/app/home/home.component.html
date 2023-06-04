@@ -1,7 +1,7 @@
 <div class="w-full h-screen bg-slate-200 flex items-center justify-center">
 
-    <div class="bg-white border w-2/3 md:w-1/3 p-10 shadow-lg">
-        <img src="../../assets/logo.png" alt="">
+    <div class="bg-white border lg:w-1/3 w-2/3  p-10 shadow-lg">
+        <img class="mx-auto" src="../../assets/logo.png" alt="">
         <p class="text-center font-semibold text-2xl">Home</p>
         <hr class="my-5">
          
@@ -14,8 +14,8 @@
         </div>
 
         <div class="border mt-4 p-2">
-            <p>Bienvenido de nuevo, <b>{{userData.email}}</b></p>
-            <p class="text-slate-500">ROL: Cocinero</p>
+            <p class="mb-2">Bienvenido de nuevo, <b>{{userData.email}}</b></p>
+            <button (click)="logout()" class="text-center p-3 bg-red-500 w-full text-white font-semibold">Log out</button>
             
         </div>
     </div>

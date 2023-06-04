@@ -8,17 +8,14 @@ import { LoginService } from './services/login.service';
 })
 export class AuthGuard implements CanActivate {
   
-  constructor(private router: Router, private loginService : LoginService) {}
+  constructor(private router: Router, private loginService : LoginService) {
+    
+  }
 
   canActivate (): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-    let isLogged =  true
-
-    this.loginService.isLoggedIn().then(isLoggedIn => {
-      isLogged = isLoggedIn
-    });
-
-      if (isLogged) {
+      if (this.loginService.isLoggedIn()) {
+        console.log("holaaaaa")
         return true;
       } else {
         this.router.navigate(['/login']);

@@ -18,8 +18,7 @@ export class LoginService {
     public afs: AngularFirestore, // Inject Firestore service
     public afAuth: AngularFireAuth, // Inject Firebase auth service
   ) {
-    /* Saving user data in localstorage when 
-    logged in and setting up null when logged out */
+   
     this.afAuth.authState.subscribe((user) => {
       if (user) {
         this.userData = user;
@@ -60,21 +59,33 @@ export class LoginService {
         this.SetUserData(result.user);
         this.afAuth.authState.subscribe((user) => {
           if (user) {
-            console.log("Usuario correcto")
+            localStorage.setItem('user', JSON.stringify(this.userData));
             }
         });
       })
       
   }
 
-  async isLoggedIn(): Promise<boolean> {
-    const user = await this.afAuth.currentUser;
-    return !!user;
+  async getRole(){
+    
+  }
+
+  isLoggedIn(): boolean {
+    const user = JSON.parse(localStorage.getItem('user')!);
+    return user !== null ? true : false;
   }
 
    // Método para obtener el usuario actual
    getCurrentUser(): any {
-    return this.userData;
+    return JSON.parse(localStorage.getItem('user')!);
+  }
+
+  logout() {
+    this.afAuth.signOut().then(() => {
+     console.log("Se cerró sesion")
+    }).catch((error) => {
+      console.log('Error al cerrar sesión:', error);
+    });
   }
 
 

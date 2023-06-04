@@ -29,15 +29,15 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  btnLogin(){
-    this.LoginService.SignIn(this.email, this.password).then( response =>  {
-      this.userData = this.LoginService.getCurrentUser()
+  async btnLogin(){
+    try {
+      await this.LoginService.SignIn(this.email, this.password);
+      console.log("paso por btnlogin");
       this.router.navigate(['/']);
-      }
-    )
-    .catch( error => {
-      this.error = true
-      this.textoError = error
-    })
+    } catch (error) {
+      this.error = true;
+      this.textoError = error;
+      console.log("Error al iniciar sesión:", error);
+    }
   }
 }
