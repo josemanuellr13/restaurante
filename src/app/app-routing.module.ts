@@ -7,6 +7,8 @@ import { PublicidadComponent } from './publicidad/publicidad.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.guard';
+import { RegistroComponent } from './registro/registro.component';
+import { PaginaErrorComponent } from './componentes/pagina-error/pagina-error.component';
 const routes: Routes = [{
   path:"turno", component: TurnoComponent , canActivate: [AuthGuard] 
 },{
@@ -26,6 +28,10 @@ const routes: Routes = [{
   path:"autoservicio/:opcionNav/producto/:idproducto",component : AutoservicioComponent
 },
 {
+  path:"invitaciones/:codigo",component : RegistroComponent
+}
+,
+{
   path:"dashboard", component : DashboardComponent, canActivate: [AuthGuard] 
 }
 ,{
@@ -34,7 +40,11 @@ const routes: Routes = [{
   path:"dashboard/:opcion/:id",component : DashboardComponent
 },{
   path:"login", component: LoginComponent
-}];
+},
+{
+   path: '**', component: PaginaErrorComponent 
+},
+{ path: 'error', component: PaginaErrorComponent }];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

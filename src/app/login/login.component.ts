@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
   error : boolean = false
   textoError = "error"
   constructor(private LoginService: LoginService, private router: Router) { }
-  mostrandoClave: boolean = false
+  mostrandoClave: boolean = true
   
   userData : any = {
     email : "a"
@@ -32,8 +32,10 @@ export class LoginComponent implements OnInit {
   async btnLogin(){
     try {
       await this.LoginService.SignIn(this.email, this.password);
-      console.log("paso por btnlogin");
-      this.router.navigate(['/']);
+      setTimeout( () => {
+        this.router.navigate(['/']);
+      }, 500)
+      
     } catch (error) {
       this.error = true;
       this.textoError = error;

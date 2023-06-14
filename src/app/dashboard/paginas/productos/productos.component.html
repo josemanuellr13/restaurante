@@ -81,7 +81,7 @@
             <div class="bg-slate-100 rounded p-3 flex flex-row flex-wrap mb-3 gap-3">
                 <input [(ngModel)]="nombreProductoFiltrar" (input)="onInputChange($event)" type="text" placeholder="Nombre del producto" class="p-4 grow border border-slate-300">
                 
-                <select [(ngModel)]="categoriaProductoFiltrar" name="" id="" class="px-3 border border-slate-300">
+                <select [(ngModel)]="categoriaProductoFiltrar" name="" id="" class="px-3 h-16 border border-slate-300">
                         <option value="" selected> </option>
                         <option value="0" >Ofertas</option>
                         <option value="1" >Kebabs</option>
@@ -91,10 +91,10 @@
                         <option value="5">Postres</option>
                 </select>
                     
-                <input type="number" [(ngModel)]="precioDesde" class="px-3 border border-slate-300" placeholder="Precio desde...">
-                <input type="number" [(ngModel)]="precioHasta" class="px-3 border border-slate-300" placeholder="Precio hasta...">
+                <input type="number" [(ngModel)]="precioDesde" class="px-3 border h-16 border-slate-300" placeholder="Precio desde...">
+                <input type="number" [(ngModel)]="precioHasta" class="px-3 border h-16 border-slate-300" placeholder="Precio hasta...">
                 <button (click)="resetearFiltrado()" class="bg-blue-500 hover:bg-blue-600 px-3 h-16 text-white">Resetear</button>
-                <button (click)="filtrarProductos()" class="bg-green-600 hover:bg-green-700 px-3 text-white">Filtrar</button>
+                <button (click)="filtrarProductos()" class="bg-green-600 hover:bg-green-700 h-16 px-3 text-white">Filtrar</button>
             </div>
 
             <table class="w-full bg-slate-100">
@@ -103,12 +103,12 @@
                     <th class="py-2">Nombre</th>
                     <th>Descripción</th>
                     <th>Precio</th>
-                    <th>Opciones</th>
+                    <th *ngIf="rol == 0">Opciones</th>
                 </thead>
 
                 <tbody class="bg-white border">
                     <tr *ngFor="let prod of productosMostrado; index as i" class="border">
-                        <td class="border-r">
+                        <td class="border-r min-w-[100px]">
                             <img src="{{prod.imagen}}" class="w-24 h-24 mx-auto">
                         </td>
                         <td class="border-r">
@@ -121,7 +121,7 @@
                             <span class="block"  [ngClass]="i % 2 === 0 ? 'fondo-blanco' : 'fondo-gris'" *ngFor="let prec of prod.precio; let i = index">{{prod.tamanyos[i] }} <span class="font-semibold">{{ prec + "Є"}}</span></span>
                            
                         </td>
-                        <td class="flex flex-row gap-5 items-center justify-center pt-6">
+                        <td *ngIf="rol == 0" class="flex flex-row gap-5 items-center justify-center pt-6 px-2">
                             <button routerLink="/dashboard/productos/{{prod.id}}" class="w-12 h-12 rounded bg-blue-500 hover:bg-blue-600"><i class="bi bi-pencil-fill text-white text-xl"></i></button>
                             <button (click)="borrarProducto(prod.id)" class="w-12 h-12 bg-red-500 rounded hover:bg-red-600"><i class="bi bi-trash-fill text-white text-xl"></i></button>
                         </td>
@@ -134,7 +134,7 @@
                 <btnPaginado (click)="cambiarPaginado(btn)" *ngFor="let btn of botonesPaginado" [valor]="btn+1" [activo]="indexPaginadoActual==btn"></btnPaginado>
             </div>
 
-            <button (click)="activarAddProducto()" class="mt-5 bg-green-600 hover:bg-green-700 text-white p-3 text-sm text-white">Agregar nuevo producto</button>
+            <button *ngIf="rol == 0" (click)="activarAddProducto()" class="mt-5 bg-green-600 hover:bg-green-700 text-white p-3 text-sm text-white">Agregar nuevo producto</button>
         </div>
 
 
@@ -146,9 +146,9 @@
             <form #formGuardarProducto="ngForm" class="flex flex-col flex-wrap md:flex-row gap-3" >
                 <!-- Nombre, URL y tipo -->
                 <div class="w-full flex flex-col md:flex-row gap-3 flex-wrap">
-                    <input type="text" required name="nombre" ngModel id="nombre" class="bg-slate-100 border  p-3 grow" placeholder="Nombre del producto" >
-                    <input type="text" required name="imagen" ngModel id="imagen" class="bg-slate-100 border p-3 grow" placeholder="URL de imagen">
-                    <select [(ngModel)]="selectedCategoria" name="categoria" ngModel id="categoria" class="bg-slate-100 border p-3 grow" >
+                    <input type="text" required name="nombre" [(ngModel)]="productoAmodificar.nombre" id="nombre" class="bg-slate-100 border  p-3 grow" placeholder="Nombre del producto" >
+                    <input type="text" required name="imagen" [(ngModel)]="productoAmodificar.imagen" id="imagen" class="bg-slate-100 border p-3 grow" placeholder="URL de imagen">
+                    <select [(ngModel)]="productoAmodificar.categoria" name="categoria" ngModel id="categoria" class="bg-slate-100 border p-3 grow" >
                         <option value="0" >Ofertas</option>
                         <option value="1" selected>Kebabs</option>
                         <option value="2">Complementos</option>
@@ -160,45 +160,48 @@
                 
                 <!-- Descripcion -->
                 <div  class="w-full flex flex-col md:flex-row gap-3 flex-wrap">
-                    <input required name="texto" type="textarea" ngModel id="texto" class="bg-slate-100 border p-3 grow" placeholder="Descripcion">
+                    <input required name="texto" type="textarea" [(ngModel)]="productoAmodificar.texto" id="texto" class="bg-slate-100 border p-3 grow " placeholder="Descripcion">
                 </div>
 
                 
                 
                 <div  class="w-full flex flex-col md:flex-row gap-3 flex-wrap">
                     ¿Tiene varios tamaños?
-                    <input (click)="actTieneVariosTamanyos()" [(ngModel)]="tieneVariosTamanyos" name="preciocheck" type="checkbox" class="w-8">
+                    <input (click)="actTieneVariosTamanyos()" [checked]="compVariosTamanyos()" name="preciocheck" type="checkbox" class="w-8">
                 </div>
-                <div *ngIf="!tieneVariosTamanyos" class="w-full flex flex-col md:flex-row gap-3 flex-wrap">
-                    <input type="number" name="precio" ngModel id="precio" class="bg-slate-100 border p-3 grow" placeholder="Precio">
+
+                <div *ngIf="!compVariosTamanyos()" class="w-full flex flex-col md:flex-row gap-3 flex-wrap">
+                    <input type="number" name="precio" [(ngModel)]="productoAmodificar.precio[0]" id="precio" class="bg-slate-100 border p-3 grow" placeholder="Precio">
                 </div>
-                <div *ngIf="tieneVariosTamanyos"  class="w-full">
+
+                
+                <div *ngIf="compVariosTamanyos()"  class="w-full">
                     <table class="w-full bg-slate-100">
                         <thead class="py-3">
                             <th class="py-2">Nombre tamaño</th>
                             <th>Precio</th>
                         </thead>
                         <tbody class="bg-white border">
-                            <tr *ngFor="let cant of tamanyosProducto; index as i" class="">
+                            <tr *ngFor="let prec of productoAmodificar.precio; index as i" class="">
                                 <td class="">
-                                    <input type="text" [(ngModel)]="tamanyosProducto[i]" [ngModelOptions]="{updateOn: 'blur'}" ngModel name="tamanyo{{i}}" class="w-full p-2 border" placeholder="Tarrina Mediana">
+                                    <input type="text" [(ngModel)]="productoAmodificar.tamanyos[i]" [ngModelOptions]="{updateOn: 'blur'}" ngModel name="tamanyo{{i}}" class="w-full p-2 border" placeholder="Tarrina Mediana">
                                 </td>
                                 <td>
-                                    <input  [(ngModel)]="preciosProducto[i]" ngModel name="precio{{i}}" type="number" class="w-full p-2 border" placeholder="3,5">
+                                    <input  [(ngModel)]="preciosProducto[i]" [(ngModel)]="productoAmodificar.precio[i]" name="precio{{i}}" type="number" class="w-full p-2 border" placeholder="3,5">
                                 </td>
-                                <td (click)="borrarTamanyoTabla(i)" class="bg-red-500 hover:bg-red-600">
+                                <td (click)="borrarTamanyoTablaModificando(i)" class="bg-red-500 hover:bg-red-600">
                                     <button class=" text-white w-full"><i class="bi bi-trash-fill"></i></button>
                                 </td>
                             </tr>
                         </tbody>
 
                     </table>
-                    <button (click)="agregarTamanyoProducto()" class="bg-green-400 p-3 block mt-3">Agregar tamaño</button>
+                    <button (click)="agregarTamanyoProductoModificando()" class="bg-green-400 p-3 block mt-3">Agregar tamaño</button>
 
                 </div>
                 
                 <div class="w-full xbg-red-300">
-                    <button (click)="guardarProducto()" type="submit" class="bg-blue-500 hover:bg-blue-600 p-3 px-6 text-white  xw-1/2 mx-auto block">
+                    <button (click)="modificarProducto()" type="submit" class="bg-blue-500 hover:bg-blue-600 p-3 px-6 text-white  xw-1/2 mx-auto block">
                         Guardar
                     </button>
                 </div>

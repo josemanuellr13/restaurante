@@ -1,11 +1,11 @@
 <div class="flex flex-row h-screen">
-        <div class="lg:w-1/2 w-1/3">
+        <div class="xl:w-1/2 w-1/3">
             <img src="../../assets/fondokebab.png" class="w-full h-full object-cover">
         </div>
 
       
             
-        <div class="lg:w-1/2 w-2/3 bg-slate-100 flex items-center justify-center p-20 ">
+        <div class="xl:w-1/2 w-2/3 bg-slate-100 flex items-center justify-center p-20 ">
             <div class="bg-white w-full flex flex-col gap-4 rounded p-10 shadow-xl">
 
                 <img src="../../assets/logo.png" class="w-1/2 mx-auto">
@@ -21,15 +21,17 @@
                     <input [(ngModel)]="email" type="text" class="w-full border rounded px-3 h-12" placeholder="Introduce tu email">
                 </div>
 
-                <div>
+                <div class="relative">
                     <p class="font-semibold text-slate-700">Contraseña</p>
-                    <input [(ngModel)]="password" type="text" class="w-full border  rounded px-3 h-12" placeholder="Introduce tu email">
+                    
+                    <input [type]="mostrandoClave?'password':'text'"  [(ngModel)]="password" class="w-full border  rounded px-3 h-12" placeholder="Introduce tu contraseña">
+                    <button (click)="mostrarClave()" class="absolute right-4 text-xl h-12"><i class="bi bi-eye"></i></button>
                 </div>
 
                 <div *ngIf="error" class="bg-red-100 border border-red-300 rounded p-2">
                     {{textoError}}
                 </div>
-                <button (click)="btnLogin()" class="bg-zinc-200 hover:bg-zinc-300 w-full h-12 rounded font-semibold">Entrar</button>
+                <button (click)="btnLogin()" class="bg-blue-400 hover:bg-blue-500 w-full h-12 rounded text-white font-semibold">Entrar</button>
                 
             </div>
             

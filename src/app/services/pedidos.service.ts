@@ -28,6 +28,9 @@ export class PedidosService {
     return preparandoCol.add(pedido.toJSON())
   }
   
+  getPedidosListos():Observable<any>{
+    return this.firebase.collection("pedidos").doc("pedidosActivos").collection("listo").snapshotChanges()
+  }
 
   getPedidosPorEmpezar(): Observable<any>{
     return this.firebase.collection("pedidos").doc("pedidosActivos").collection("porEmpezar").snapshotChanges()
@@ -36,6 +39,28 @@ export class PedidosService {
   getPedidosPreparando(): Observable<any>{
     return this.firebase.collection("pedidos").doc("pedidosActivos").collection("preparando").snapshotChanges()
   }
+
+  
+entregarPedido(documentoId) {
+  const origenRef = this.firebase.collection("pedidos").doc("pedidosActivos").collection("listo").doc(documentoId);
+  const destinoRef = this.firebase.collection("pedidos").doc("historialPedidos").collection("pedidos").doc(documentoId);;
+
+  return origenRef.get().subscribe((doc) => {
+    if (doc.exists) {
+      const data = doc.data();
+      return destinoRef.set(data)
+        .then(() => {
+          return origenRef.delete();
+        })
+        .catch((error) => {
+          console.error("Error al mover el documento:", error);
+          throw error;
+        });
+    } else {
+      throw new Error("El documento no existe en la colección de origen.");
+    }
+  });
+}
 
   borrarDocByCodTemporal(codTemporal: string, estado: string): Promise<void> {
     const pedidosActivosRef = this.firebase.collection('pedidos').doc('pedidosActivos').ref;

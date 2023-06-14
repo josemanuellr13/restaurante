@@ -88,24 +88,15 @@ export class CartaComponent implements OnInit {
     let tamanyoElegido = this.productoSeleccionado.tamanyos[this.indexTamanyoSeleccionado]
     let precioElegido = this.productoSeleccionado.precio[this.indexTamanyoSeleccionado]
 
-    console.log(this.productoSeleccionado)
-    console.log(this.productoSeleccionado.precio.length)
     if(!precioElegido){
       let precio = 0
       for (let i = 0; i < this.productoSeleccionado.precio.length; i++) {
         precio += this.productoSeleccionado.precio[i];
       }
       
-     console.log(precio)
     }
 
     let productoLinea = new ProductoLinea(this.productoSeleccionado, precioElegido, tamanyoElegido, this.cantidad )
-
-    console.log(this.productoSeleccionado.precio)
-    console.log(this.productoSeleccionado.precio[this.indexTamanyoSeleccionado])
-    console.log(precioElegido)
-    
-
     this._sesionService.addProducto(productoLinea)
     this.mostrarAlerta("Producto añadido a la cesta")
     

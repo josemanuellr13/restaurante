@@ -12,12 +12,11 @@
                 </a>
             </div>
         </div>
+    </div>
 
-        <div class="border mt-4 p-2">
-            <p class="mb-2">Bienvenido de nuevo, <b>{{userData.email}}</b></p>
-            <button (click)="logout()" class="text-center p-3 bg-red-500 w-full text-white font-semibold">Log out</button>
-            
-        </div>
+    <div class="absolute border mt-4 p-4 left-8 bottom-12 bg-white">
+        <p class="mb-2">Bienvenido de nuevo <br> <b>{{userData.email}}</b></p>
+        <button (click)="logout()" class="text-center p-3 bg-red-500 w-full text-white font-semibold">Log out</button>
     </div>
 </div>
 

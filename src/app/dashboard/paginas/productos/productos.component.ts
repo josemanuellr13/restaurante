@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { ProductosService } from '../../../services/productos.service';
 import { Producto } from '../../../models/Producto';
 import { ActivatedRoute } from '@angular/router';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'pagina-productos',
@@ -11,20 +12,32 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ProductosComponent implements OnInit {
 
-  constructor(private _productoService : ProductosService, private route: ActivatedRoute) { }
+  constructor(private _productoService : ProductosService, private route: ActivatedRoute, private loginService : LoginService) { }
 
   @Output() datosAlerta = new EventEmitter<{tipo: string, texto: string}>();
-
+  rol :  any
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.idProductoAmodificar = params['id'];
+
+      if(this.idProductoAmodificar != null){
+        this._productoService.getProducto(this.idProductoAmodificar).subscribe( prod => {
+          this.productoAmodificar = prod
+          console.log(this.productoAmodificar)
+          }
+        )
+      }
     }
     );
-
+    this.loginService.getRol().subscribe((userData: any)  => {
+      this.rol = userData.rol
+    })
     this.getProductos()
     
   }
 
+
+  productoAmodificar : Producto
   // Volcamos productos de BBDD en this.productos
   async getProductos(){
     this._productoService.getProductos().subscribe(doc => {
@@ -43,8 +56,9 @@ export class ProductosComponent implements OnInit {
     }); 
   }
 
+  
   //..
-  idProductoAmodificar = 0
+  idProductoAmodificar : string = null
   mostrarAddProducto = false
   productos : Producto[] = []
 
@@ -70,6 +84,11 @@ export class ProductosComponent implements OnInit {
   categoriaProductoFiltrar = -1
   precioDesde = null
   precioHasta = null
+
+
+  compVariosTamanyos() :  boolean{
+    return this.productoAmodificar.precio.length > 1;
+  }
 
   filtrarProductos(){
       let datosFiltrados : Producto[] = this.productos
@@ -154,6 +173,29 @@ export class ProductosComponent implements OnInit {
   agregarTamanyoProducto(){
     let Tamanyo : string = ""
     this.tamanyosProducto.push(Tamanyo)
+  }
+
+  agregarTamanyoProductoModificando(){
+    let Tamanyo = 1
+    this.productoAmodificar.precio.push(Tamanyo)
+  }
+
+  modificarProducto() {
+    this._productoService.modificarProducto(this.idProductoAmodificar, this.productoAmodificar)
+      .then(() => {
+        this.mostrarAlerta("exito","Producto modificado correctamente")
+        console.log('El producto se ha modificado correctamente');
+      })
+      .catch(error => {
+        this.mostrarAlerta("error", error)
+        console.error('Error al modificar el producto:', error);
+      });
+  }
+
+  borrarTamanyoTablaModificando(i : number){
+    this.productoAmodificar.precio.splice(i,1)
+    this.productoAmodificar.tamanyos.splice(i,1)
+
   }
 
   actTieneVariosTamanyos(){

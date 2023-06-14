@@ -13,7 +13,7 @@
             <btn-nav-dashboard url="/dashboard/cocina" nombre="Cocina" shortcut = "cocina"></btn-nav-dashboard>
             <btn-nav-dashboard url="/dashboard/mostrador" nombre="Mostrador" shortcut = "mostrador"></btn-nav-dashboard>
             <btn-nav-dashboard url="/dashboard/productos" nombre="Listado de productos" shortcut = "productos"></btn-nav-dashboard>
-            <btn-nav-dashboard url="/dashboard/administracion" nombre="Administración" shortcut = "administracion"></btn-nav-dashboard>
+            <btn-nav-dashboard *ngIf="rol == 0" url="/dashboard/administracion" nombre="Administración" shortcut = "administracion"></btn-nav-dashboard>
         </div>
       
     
@@ -38,6 +38,9 @@
             <pagina-mostrador (datosAlerta)="mostrarAlerta($event)"></pagina-mostrador>
         </div>
 
-        <!-- Pedidos -->
+        <!-- Administracion -->
+        <div *ngIf="opcion=='administracion'" class="h-full">
+            <pagina-administracion (datosAlerta)="mostrarAlerta($event)"></pagina-administracion>
+        </div>
     </div>
 </div>

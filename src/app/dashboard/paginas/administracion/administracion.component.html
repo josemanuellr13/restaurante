@@ -1,0 +1,85 @@
+<div class="bg-white rounded p-6 shadow-lg min-h-full">
+    <h2 class="text-2xl font-semibold text-slate-800">Usuarios</h2>
+    <hr class="border-zinc-400 my-3">
+
+    <div  class="bg-white rounded p-6 shadow-lg">
+     
+
+        <table class="w-full bg-slate-100">
+            <thead class="py-3">
+                <th class="py-2">ID</th>
+                <th class="py-2">Nombre</th>
+                <th>Email</th>
+                <th>Rol</th>
+                <th>Opciones</th>
+            </thead>
+
+            <tbody class="bg-white border">
+                <tr *ngFor="let user of usuarios; index as i" class="border">
+                    <td class="border-r min-w-[100px] pl-3">
+                        <p>{{user.uid}}</p>
+                    </td>
+                    <td class="border-r">
+                        <p class="text-center">{{user.displayName}}</p>
+                    </td>
+                    <td class="border-r">
+                        <p class="text-center">{{user.email}}</p>
+                    </td>
+                    <td class="border-r text-center p-2">
+                        <span class="block" >{{getRol(user.rol)}}</span>
+                    </td>
+
+                    <td class="flex flex-row items-center justify-center py-3 px-2">
+                        <button (click)="borrarUsuario(user.uid)"  class="h-12 w-12 bg-red-500 rounded hover:bg-red-600"><i class="bi bi-trash-fill text-white text-xl"></i></button>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+
+
+    </div>
+
+    <h2 class="text-2xl font-semibold text-slate-800 mt-10">Invitaciones pendientes</h2>
+    <hr class="border-zinc-400 my-3">
+
+    <div  class="bg-white rounded p-6 shadow-lg">
+     
+
+        <table class="w-full bg-slate-100">
+            <thead class="py-3">
+                <th class="py-2">URL</th>
+                <th class="py-2">Estado</th>
+                <th>Rol</th>
+                <th>Opciones</th>
+            </thead>
+
+            <tbody class="bg-white border">
+                <tr *ngFor="let inv of invitaciones; index as i" class="border">
+                    <td class="border-r w-1/2">
+                        <p class="text-blue-600 pl-3"><a href="https://restaurante-4066c.web.app/invitaciones/{{inv.id}}">restaurante-4066c.web.app/invitaciones/{{inv.id}}</a></p>
+                    </td>
+                    <td class="border-r items-center flex h-full flex-grow justify-center">
+                        <span class="bg-zinc-100 rounded  p-2 mx-auto">Por registrar</span>
+                    </td>
+                    <td class="border-r">
+                        <select [(ngModel)]="inv.ROL" (change)="actualizarRol(inv.ROL, inv.id )" class="w-full">
+                            <option value="1">Cocinero</option>
+                            <option value="0">Administrador</option>
+                        </select>
+                    </td>
+                    <td class="border-r text-center p-2">
+                        <button (click)="borrarInvitacionActiva(inv.id)" class="h-12 w-12 bg-red-500 rounded hover:bg-red-600"><i class="bi bi-trash-fill text-white text-xl"></i></button>
+
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+
+        
+
+        <button (click)="btnGenerar()" class="mt-5 bg-green-600 hover:bg-green-700 text-white p-3 text-sm text-white">Generar invitación nueva</button>
+    </div>
+
+</div>

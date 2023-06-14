@@ -7,6 +7,7 @@ import { AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/f
 @Injectable({
   providedIn: 'root'
 })
+
 export class TurnosService {
   turnoActual : number = 0
   administracionCollection = null
@@ -15,37 +16,42 @@ export class TurnosService {
   constructor(private firebase: AngularFirestore) { 
     this.administracionCollection = this.firebase.collection("administracion")
     this.pedidosCollection = this.firebase.collection("pedidos")
-  }
-
-  
-  getNuevoTurno() : number{
-    if(this.turnoActual >= 100){
-      this.turnoActual = 1
-    }
-    this.turnoActual += 1
-    return this.turnoActual
-  }
-
-
-  
-  
-  // Obtenemos el codigo de pedido actual, para sumarle 1
-  async getCodTurnoActual() {
-    return new Promise<number>((resolve, reject) => {
-      this.getTurnos().subscribe(turnos => {
-        const listo: string[] = turnos.listo;
-        const preparando: string[] = turnos.preparando;
-        const combinacion = listo.concat(preparando);
-        const codigos = combinacion.map(numero => Number(numero));
-        let maximo = Math.max(...codigos);
+    this.pedidosCollection.doc("pedidosActivos").get().subscribe(docSnapshot => {
+      if (docSnapshot.exists) {
+        this.turnoActual = docSnapshot.data().turnoActual;
         
-        if(maximo >= 99){
-          maximo = 0
-        }
-
-        resolve(maximo+1);
-      }, error => reject(error));
+      } 
     });
+  }
+
+  
+  getNuevoTurno(): Promise<number> {
+    this.aumentarTurno()
+    return new Promise((resolve, reject) => {
+      this.getTurnos().subscribe(data => {
+        const turnoActual = data?.turnoActual;
+        this.turnoActual = turnoActual
+        console.log('Turno actual:', turnoActual);
+        
+        resolve(turnoActual);
+      }, error => {
+        reject(error);
+      });
+    });
+    
+  }
+  aumentarTurno(){
+    const pedidosActivosRef = this.firebase.collection('pedidos').doc('pedidosActivos');
+    let nuevoTurno = this.turnoActual +1
+    if(nuevoTurno >= 100){
+      nuevoTurno = 1
+    }
+    pedidosActivosRef.update({ turnoActual: nuevoTurno })
+    .then(() => {
+    })
+    .catch(error => {
+      console.log(error)
+    })
   }
 
   getPreparando():Observable<any>{
@@ -56,9 +62,7 @@ export class TurnosService {
   }
 
   getTurnos(): Observable<any> {
-    return this.administracionCollection.doc("turno").valueChanges()
+    return this.firebase.collection('pedidos').doc('pedidosActivos').valueChanges();
   }
-
- 
 
 }

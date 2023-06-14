@@ -27,21 +27,20 @@ export class TurnoComponent implements OnInit {
 
   obtenerPreparando(){
     this._turnoService.getPreparando().subscribe(docs => {
+      this.preparando = []
       for (let i = 0; i < docs.length; i++) {
-        
         this.preparando.push(docs[i].codTemporal);
       }
-      
     }
     );
   }
 
   obtenerListo(){
     this._turnoService.getListos().subscribe(docs => {
+      this.listos = []
       for (let i = 0; i < docs.length; i++) {
         this.listos.push(docs[i].codTemporal);
       }
-      
     }
     );
   }

@@ -34,6 +34,9 @@ import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 import { CocinaComponent } from './dashboard/paginas/cocina/cocina.component';
 import { BtnNavDashboardComponent } from './componentes/btn-nav-dashboard/btn-nav-dashboard.component';
 import { MostradorComponent } from './dashboard/paginas/mostrador/mostrador.component';
+import { AdministracionComponent } from './dashboard/paginas/administracion/administracion.component';
+import { RegistroComponent } from './registro/registro.component';
+import { PaginaErrorComponent } from './componentes/pagina-error/pagina-error.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +61,9 @@ import { MostradorComponent } from './dashboard/paginas/mostrador/mostrador.comp
     CocinaComponent,
     BtnNavDashboardComponent,
     MostradorComponent,
+    AdministracionComponent,
+    RegistroComponent,
+    PaginaErrorComponent,
   ],
   imports: [
     BrowserModule,

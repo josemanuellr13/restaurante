@@ -28,6 +28,23 @@ export class ProductosService {
     return this.firebase.collection("productos").doc(id).valueChanges()
   }
 
+  modificarProducto(id: string, producto: Producto): Promise<void> {
+    
+    return this.firebase.collection('productos').doc(id).update(this.toJSON(producto));
+  }
+
+  toJSON(producto : Producto) {
+    return {
+      nombre: producto.nombre,
+      precio: producto.precio,
+      categoria:producto.categoria,
+      imagen:producto.imagen,
+      texto:producto.texto,
+      tamanyos:producto.tamanyos
+    };
+  }
+
+  
   borrarProducto(id : string) : number{
     let res = 0
     this.firebase.collection('productos').doc(id).delete().then(function() {
